@@ -1,12 +1,12 @@
 import express from "express";
-import { teamModel } from "../model/team.model.js";
+import { TeamModel } from "../model/team.model.js";
 
 export const teamRouter = express.Router();
 
 //CREATE TEAM
 teamRouter.post("/team", async (req, res) => {
   try {
-    const createdTeam = await teamModel.create(req.body);
+    const createdTeam = await TeamModel.create(req.body);
 
     return res.status(201).json(createdTeam);
   } catch (err) {
@@ -18,7 +18,7 @@ teamRouter.post("/team", async (req, res) => {
 // READ ONE TEAM
 teamRouter.get("/team/:id", async (req, res) => {
   try {
-    const team = await teamModel.findOne({ _id: req.params.id });
+    const team = await TeamModel.findOne({ _id: req.params.id });
 
     return res.status(200).json(team);
   } catch (err) {
@@ -30,7 +30,7 @@ teamRouter.get("/team/:id", async (req, res) => {
 //READ ALL TEAMS
 teamRouter.get("/teams", async (req, res) => {
   try {
-    const allTeams = await teamModel.find();
+    const allTeams = await TeamModel.find();
 
     return res.status(200).json(allTeams);
   } catch (err) {
@@ -42,10 +42,10 @@ teamRouter.get("/teams", async (req, res) => {
 //UPDATE TEAM
 teamRouter.put("/team/:id", async (req, res) => {
   try {
-    const team = await teamModel.findOne({ _id: req.params.id });
+    const team = await TeamModel.findOne({ _id: req.params.id });
 
     if (team.is_locked === false) {
-      const editTeam = await teamModel.findOneAndUpdate(
+      const editTeam = await TeamModel.findOneAndUpdate(
         { _id: req.params.id },
         { ...req.body },
         { new: true, runValidators: true }
@@ -64,10 +64,10 @@ teamRouter.put("/team/:id", async (req, res) => {
 //DELETE TEAM
 teamRouter.delete("/team/:id", async (req, res) => {
   try {
-    const team = await teamModel.findOne({ _id: req.params.id });
+    const team = await TeamModel.findOne({ _id: req.params.id });
 
     if (team.is_locked === false) {
-      const deleteTeam = await teamModel.deleteOne({ _id: req.params.id });
+      const deleteTeam = await TeamModel.deleteOne({ _id: req.params.id });
 
       return res.status(200).json(deleteTeam);
     } else {
