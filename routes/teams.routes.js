@@ -44,7 +44,7 @@ teamRouter.put("/team/:id", async (req, res) => {
   try {
     const team = await TeamModel.findOne({ _id: req.params.id });
 
-    if (team.is_locked === false) {
+    if (team._is_locked === false) {
       const editTeam = await TeamModel.findOneAndUpdate(
         { _id: req.params.id },
         { ...req.body },
@@ -66,7 +66,7 @@ teamRouter.delete("/team/:id", async (req, res) => {
   try {
     const team = await TeamModel.findOne({ _id: req.params.id });
 
-    if (team.is_locked === false) {
+    if (team._is_locked === false) {
       const deleteTeam = await TeamModel.deleteOne({ _id: req.params.id });
 
       return res.status(200).json(deleteTeam);

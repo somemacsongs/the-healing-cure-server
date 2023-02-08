@@ -32,7 +32,7 @@ const teamSchema = new Schema({
     },
   ],
   about: { type: String, required: true, minLength: 10 },
-  is_locked: { type: Boolean, default: "false" },
+  _is_locked: { type: Boolean, default: "false" },
 });
 
 export const TeamModel = model("Team", teamSchema);
