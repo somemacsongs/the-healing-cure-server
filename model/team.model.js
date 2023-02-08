@@ -36,3 +36,5 @@ const teamSchema = new Schema({
 });
 
 export const TeamModel = model("Team", teamSchema);
+
+// teste
